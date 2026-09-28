@@ -12,6 +12,10 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
     Optional<Employee> findByEmail(String email);
 
+    List<Employee> findByDepartmentEntityId(Long departmentId);
+
+    List<Employee> findByRoleEntityId(Long roleId);
+
     @Query("SELECT e FROM Employee e WHERE " +
             "(:search IS NULL OR :search = '' OR LOWER(e.name) LIKE LOWER(CONCAT('%', :search, '%')) OR CAST(e.id AS string) = :search) " +
             "AND (:department IS NULL OR :department = '' OR e.department = :department)")

@@ -2,6 +2,7 @@ package com.ems.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -36,9 +37,19 @@ public class Employee {
     @Column(nullable = false)
     private String department;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "department_id")
+    @JsonIgnore
+    private Department departmentEntity;
+
     @NotBlank(message = "Role is required")
     @Column(nullable = false)
     private String role;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "role_id")
+    @JsonIgnore
+    private Role roleEntity;
 
     @NotNull(message = "Joining date is required")
     @Column(name = "joining_date", nullable = false)

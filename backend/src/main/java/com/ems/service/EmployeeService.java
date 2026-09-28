@@ -3,9 +3,13 @@ package com.ems.service;
 import com.ems.dto.DashboardResponse;
 import com.ems.dto.EmployeeRequest;
 import com.ems.entity.Employee;
+import com.ems.entity.Department;
+import com.ems.entity.Role;
 import com.ems.exception.DuplicateEmailException;
 import com.ems.exception.ResourceNotFoundException;
 import com.ems.repository.EmployeeRepository;
+import com.ems.repository.DepartmentRepository;
+import com.ems.repository.RoleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +22,8 @@ import java.util.stream.Collectors;
 public class EmployeeService {
 
     private final EmployeeRepository employeeRepository;
+    private final DepartmentRepository departmentRepository;
+    private final RoleRepository roleRepository;
 
     public List<Employee> getAll(String search, String department) {
         return employeeRepository.searchAndFilter(search, department);
@@ -77,6 +83,22 @@ public class EmployeeService {
         employee.setPhone(request.getPhone());
         employee.setDepartment(request.getDepartment());
         employee.setRole(request.getRole());
+        if (request.getDepartmentId() != null) {
+            Department department = departmentRepository.findById(request.getDepartmentId())
+                .orElseThrow(() -> new ResourceNotFoundException("Department not found with id: " + request.getDepartmentId()));
+            employee.setDepartmentEntity(department);
+            employee.setDepartment(department.getName());
+        } else {
+            employee.setDepartmentEntity(null);
+        }
+        if (request.getRoleId() != null) {
+            Role role = roleRepository.findById(request.getRoleId())
+                .orElseThrow(() -> new ResourceNotFoundException("Role not found with id: " + request.getRoleId()));
+            employee.setRoleEntity(role);
+            employee.setRole(role.getName());
+        } else {
+            employee.setRoleEntity(null);
+        }
         employee.setJoiningDate(request.getJoiningDate());
         employee.setSalary(request.getSalary());
         employee.setAddress(request.getAddress());

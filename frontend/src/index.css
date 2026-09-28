@@ -680,6 +680,90 @@ table.data-table tr:hover td {
   font-size: 14px;
 }
 
+/* ---------- Management and attendance ---------- */
+
+.management-grid {
+  display: grid;
+  gap: 20px;
+}
+
+.management-panel {
+  padding: 20px;
+  box-shadow: 0 5px 18px rgba(25, 39, 52, 0.04);
+}
+
+.management-panel-header {
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.management-panel-header h2 {
+  margin: 0;
+  font-size: 17px;
+}
+
+.management-form,
+.attendance-form {
+  padding: 20px;
+  margin-bottom: 22px;
+}
+
+.management-form input,
+.attendance-form input,
+.attendance-form select {
+  width: 100%;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  font: inherit;
+  color: var(--color-text);
+  background: var(--color-surface);
+}
+
+.management-form input:focus,
+.attendance-form input:focus,
+.attendance-form select:focus {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 1px;
+}
+
+.management-form .form-actions,
+.attendance-form .form-actions {
+  margin-top: 0;
+}
+
+.attendance-status {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 4px 9px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.attendance-status.present {
+  color: #276b54;
+  background: var(--color-accent-soft);
+}
+
+.attendance-status.absent {
+  color: var(--color-danger);
+  background: var(--color-danger-soft);
+}
+
+@media (max-width: 720px) {
+  .management-panel,
+  .attendance-form {
+    padding: 16px;
+  }
+
+  .management-table-wrap,
+  .attendance-table-wrap {
+    margin-inline: -16px;
+    border-radius: 0;
+  }
+}
+
 /* ---------- Responsive ---------- */
 
 @media (max-width: 860px) {

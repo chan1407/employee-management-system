@@ -21,8 +21,12 @@ public class EmployeeRequest {
     @NotBlank(message = "Department is required")
     private String department;
 
+    private Long departmentId;
+
     @NotBlank(message = "Role is required")
     private String role;
+
+    private Long roleId;
 
     @NotNull(message = "Joining date is required")
     private LocalDate joiningDate;
